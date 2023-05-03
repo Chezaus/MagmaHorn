@@ -7,7 +7,7 @@ public class CharacterController2D : MonoBehaviour
 	[Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;	// How much to smooth out the movement
 	[SerializeField] private LayerMask m_WhatIsGround;							// A mask determining what is ground to the character
 	[SerializeField] public Transform m_GroundCheck;							// A position marking where to check if the player is grounded.
-
+	[SerializeField] private bool airControl;
 	const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
 	public bool m_Grounded;            // Whether or not the player is grounded.
 	const float k_CeilingRadius = .2f; // Radius of the overlap circle to determine if the player can stand up
@@ -16,6 +16,11 @@ public class CharacterController2D : MonoBehaviour
 	private Vector3 m_Velocity = Vector3.zero;
 	private bool dash;
 	private int dashes = 1;
+
+	double Wtimer = 0.25;
+	double Atimer = 0.25;
+	double Stimer = 0.25;
+	double Dtimer = 0.25;
 
 	[Header("Events")]
 	[Space]
@@ -55,15 +60,15 @@ public class CharacterController2D : MonoBehaviour
 		{
 			dashes = 1;
 		}
+
+		DashDetect();
 	}
 
 
 	public void Move(float move, bool jump)
 	{
-			double timer = 0.25;
-			timer -= Time.deltaTime;
 		//only control the player if grounded or airControl is turned on
-		if (m_Grounded)
+		if (m_Grounded || airControl)
 		{
 
 			// Move the character by finding the target velocity
@@ -84,29 +89,6 @@ public class CharacterController2D : MonoBehaviour
 				Flip();
 			}
 		}
-
-		if(Input.GetKeyDown("D"))
-		{
-			if(timer > 0 && dashes > 0)
-			{
-				dash = true;
-				dashes -= 1;
-				//dashright
-			}
-			if(timer < 0)
-			{
-				timer = 0.25;
-			}
-
-		}
-
-		if(!m_Grounded)
-		{
-			if(Input.GetAxisRaw("Horizontal") > 0)
-			{
-				m_Rigidbody2D.velocity = new Vector2(10,m_Rigidbody2D.velocity.y);
-			}
-		}
 		// If the player should jump...
 		if (m_Grounded && jump)
 		{
@@ -116,6 +98,87 @@ public class CharacterController2D : MonoBehaviour
 		}
 	}
 
+
+	private void DashDetect()
+	{
+
+		Wtimer -= Time.deltaTime;
+		Atimer -= Time.deltaTime;
+		Stimer -= Time.deltaTime;
+		Dtimer -= Time.deltaTime;
+
+		if(Input.GetKeyDown(KeyCode.W))
+		{
+			if(Wtimer > 0 && dashes > 0)
+			{
+				Dash();
+				dashes -= 1;
+			}
+			if(Wtimer < 0)
+			{
+				Wtimer = 0.25;
+			}
+		}
+
+		if(Input.GetKeyDown(KeyCode.A))
+		{
+			if(Atimer > 0 && dashes > 0)
+			{
+				Dash();
+				dashes -= 1;
+			}
+			if(Atimer < 0)
+			{
+				Atimer = 0.25;
+			}
+		}
+
+		if(Input.GetKeyDown(KeyCode.S))
+		{
+			if(Stimer > 0 && dashes > 0)
+			{
+				Dash();
+				dashes -= 1;
+			}
+			if(Stimer < 0)
+			{
+				Stimer = 0.25;
+			}
+		}
+
+		if(Input.GetKeyDown(KeyCode.D))
+		{
+			if(Dtimer > 0 && dashes > 0)
+			{
+				Dash();
+				dashes -= 1;
+				Debug.Log("dashed");
+			}
+			if(Dtimer < 0)
+			{
+				Dtimer = 0.25;
+			}
+			Debug.Log("Pressed D");
+		}
+	}
+	
+	private void Dash()
+	{
+		float dashtimer = 1;
+		bool dashing = false;
+		if(!dashing && dashtimer > 0)
+		{
+			m_Rigidbody2D.velocity = new Vector2(10,m_Rigidbody2D.velocity.y/2);
+			dashtimer -=Time.deltaTime;
+			dashing = true;
+		}
+		
+		if(dashtimer <= 0)
+		{
+			m_Rigidbody2D.velocity = new Vector2(0,m_Rigidbody2D.velocity.y);
+			dashing = false;
+		}
+	}
 
 	private void Flip()
 	{
