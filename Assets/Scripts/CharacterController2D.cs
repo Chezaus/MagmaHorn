@@ -22,6 +22,12 @@ public class CharacterController2D : MonoBehaviour
 	double Stimer = 0.25;
 	double Dtimer = 0.25;
 
+	double Wcooldown;
+	double Acooldown;
+	double Scooldown;
+	double Dcooldown;
+
+
 	bool dashing = false;
 
 	[Header("Events")]
@@ -62,6 +68,19 @@ public class CharacterController2D : MonoBehaviour
 		{
 			dashes = 1;
 		}
+
+		Wtimer -= Time.deltaTime;
+		Atimer -= Time.deltaTime;
+		Stimer -= Time.deltaTime;
+		Dtimer -= Time.deltaTime;
+
+		Wcooldown -= Time.deltaTime;
+		Acooldown -= Time.deltaTime;
+		Scooldown -= Time.deltaTime;
+		Dcooldown -= Time.deltaTime;
+
+
+		
 
 		DashDetect();
 	}
@@ -107,51 +126,54 @@ public class CharacterController2D : MonoBehaviour
 	private void DashDetect()
 	{
 
-		Wtimer -= Time.deltaTime;
-		Atimer -= Time.deltaTime;
-		Stimer -= Time.deltaTime;
-		Dtimer -= Time.deltaTime;
-
 		if(Input.GetKeyDown(KeyCode.W))
 		{
-			if(Wtimer > 0 && dashes > 0)
+			Wcooldown = 0;
+			if(Wtimer > 0 && dashes > 0 && Wcooldown <=0)
 			{
-				m_Rigidbody2D.velocity = new Vector2(0,50);
+				m_Rigidbody2D.velocity = new Vector2(0,5);
 				dashes -= 1;
 				Wtimer = 0;
+				Wcooldown = 0.5;
 			}
 			Wtimer = 0.25;
 		}
 
 		if(Input.GetKeyDown(KeyCode.A))
 		{
-			if(Atimer > 0 && dashes > 0)
+			Acooldown = 0;
+			if(Atimer > 0 && dashes > 0 && Acooldown <=0)
 			{
-				m_Rigidbody2D.velocity = new Vector2(-50,0);
+				m_Rigidbody2D.velocity = new Vector2(-25,0);
 				dashes -= 1;
 				Atimer = 0;
+				Acooldown = 0.5;
 			}
 			Atimer = 0.25;
 		}
 
 		if(Input.GetKeyDown(KeyCode.S))
 		{
-			if(Stimer > 0 && dashes > 0)
+			Scooldown = 0;
+			if(Stimer > 0 && dashes > 0 && Scooldown <=0)
 			{
-				m_Rigidbody2D.velocity = new Vector2(0,-50);
+				m_Rigidbody2D.velocity = new Vector2(0,-25);
 				dashes -= 1;
 				Stimer = 0;
+				Scooldown = 0.5;
 			}
 			Stimer = 0.25;
 		}
 
 		if(Input.GetKeyDown(KeyCode.D))
 		{
-			if(Dtimer > 0 && dashes > 0)
+			Dcooldown = 0;
+			if(Dtimer > 0 && dashes > 0 && Dcooldown <=0)
 			{
-				m_Rigidbody2D.velocity = new Vector2(50,0);
+				m_Rigidbody2D.velocity = new Vector2(25,0);
 				dashes -= 1;
 				Dtimer = 0;
+				Dcooldown = 0.5;
 			}
 			Dtimer = 0.25;
 		}
