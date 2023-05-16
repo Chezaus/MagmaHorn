@@ -8,6 +8,8 @@ public class CharacterController2D : MonoBehaviour
 	[SerializeField] private LayerMask m_WhatIsGround;							// A mask determining what is ground to the character
 	[SerializeField] public Transform m_GroundCheck;							// A position marking where to check if the player is grounded.
 	[SerializeField] private bool airControl = true;
+	[SerializeField] private double dashcooldown = 0.20;
+	
 	const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
 	public bool m_Grounded;            // Whether or not the player is grounded.
 	const float k_CeilingRadius = .2f; // Radius of the overlap circle to determine if the player can stand up
@@ -17,10 +19,10 @@ public class CharacterController2D : MonoBehaviour
 	private bool dash;
 	private int dashes = 1;
 
-	double Wtimer = 0.25;
-	double Atimer = 0.25;
-	double Stimer = 0.25;
-	double Dtimer = 0.25;
+	double Wtimer;
+	double Atimer;
+	double Stimer;
+	double Dtimer;
 
 	double Wcooldown;
 	double Acooldown;
@@ -28,7 +30,7 @@ public class CharacterController2D : MonoBehaviour
 	double Dcooldown;
 
 
-	bool dashing = false;
+	public bool dashing = false;
 
 	[Header("Events")]
 	[Space]
@@ -38,12 +40,19 @@ public class CharacterController2D : MonoBehaviour
 	[System.Serializable]
 	public class BoolEvent : UnityEvent<bool> { }
 
+
+
 	private void Awake()
 	{
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
 
 		if (OnLandEvent == null)
 			OnLandEvent = new UnityEvent();
+
+		Wtimer = dashcooldown;
+		Atimer = dashcooldown;
+		Stimer = dashcooldown;
+		Dtimer = dashcooldown;
 	}
 
 	private void FixedUpdate()
@@ -131,12 +140,12 @@ public class CharacterController2D : MonoBehaviour
 			Wcooldown = 0;
 			if(Wtimer > 0 && dashes > 0 && Wcooldown <=0)
 			{
-				m_Rigidbody2D.velocity = new Vector2(0,5);
+				m_Rigidbody2D.velocity = new Vector2(0,15);
 				dashes -= 1;
 				Wtimer = 0;
 				Wcooldown = 0.5;
 			}
-			Wtimer = 0.25;
+			Wtimer = dashcooldown;
 		}
 
 		if(Input.GetKeyDown(KeyCode.A))
@@ -149,7 +158,7 @@ public class CharacterController2D : MonoBehaviour
 				Atimer = 0;
 				Acooldown = 0.5;
 			}
-			Atimer = 0.25;
+			Atimer = dashcooldown;
 		}
 
 		if(Input.GetKeyDown(KeyCode.S))
@@ -162,7 +171,7 @@ public class CharacterController2D : MonoBehaviour
 				Stimer = 0;
 				Scooldown = 0.5;
 			}
-			Stimer = 0.25;
+			Stimer = dashcooldown;
 		}
 
 		if(Input.GetKeyDown(KeyCode.D))
@@ -175,7 +184,7 @@ public class CharacterController2D : MonoBehaviour
 				Dtimer = 0;
 				Dcooldown = 0.5;
 			}
-			Dtimer = 0.25;
+			Dtimer = dashcooldown;
 		}
 	}
 
