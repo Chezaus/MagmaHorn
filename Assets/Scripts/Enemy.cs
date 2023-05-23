@@ -5,8 +5,9 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public bool flipped;
-    private Rigidbody2D _Rigidbody2D;
+    private Rigidbody2D _Rigidbody2D;   
     public float speed = 1;
+    public CharacterController2D player;
 
     public void Turn()
     {
@@ -34,6 +35,14 @@ public class Enemy : MonoBehaviour
         if (flipped) { shift = -1; }
         else { shift = 1; }
         transform.position = transform.position + new Vector3(shift * speed * Time.deltaTime, 0, 0);
+    }
+
+    private void OnTriggerStay2D (Collider2D other)
+    {
+        if(other.tag == "Player" && player.dashing)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
 }

@@ -29,8 +29,13 @@ public class CharacterController2D : MonoBehaviour
 	double Scooldown;
 	double Dcooldown;
 
+	bool Wdashing;
+	bool Adashing;
+	bool Sdashing;
+	bool Ddashing;
 
-	public bool dashing = false;
+	public bool dashing;
+
 
 	[Header("Events")]
 	[Space]
@@ -88,6 +93,25 @@ public class CharacterController2D : MonoBehaviour
 		Scooldown -= Time.deltaTime;
 		Dcooldown -= Time.deltaTime;
 
+		if(Wcooldown > 0){Wdashing = true;}
+		else{Wdashing = false;}		
+
+		if(Acooldown > 0){Adashing = true;}
+		else{Adashing = false;}	
+
+		if(Scooldown > 0){Sdashing = true;}
+		else{Sdashing = false;}	
+
+		if(Dcooldown > 0){Ddashing = true;}
+		else{Ddashing = false;}	
+
+		if(Wdashing | Adashing | Sdashing | Ddashing)
+		{
+			dashing = true;
+		}
+		else{
+			dashing = false;
+		}
 
 		
 
@@ -144,8 +168,10 @@ public class CharacterController2D : MonoBehaviour
 				dashes -= 1;
 				Wtimer = 0;
 				Wcooldown = 0.5;
+				Wdashing = true;
 			}
 			Wtimer = dashcooldown;
+			Wdashing = false;
 		}
 
 		if(Input.GetKeyDown(KeyCode.A))
@@ -157,8 +183,10 @@ public class CharacterController2D : MonoBehaviour
 				dashes -= 1;
 				Atimer = 0;
 				Acooldown = 0.5;
+				Adashing = true;
 			}
 			Atimer = dashcooldown;
+			Adashing = false;
 		}
 
 		if(Input.GetKeyDown(KeyCode.S))
@@ -170,8 +198,10 @@ public class CharacterController2D : MonoBehaviour
 				dashes -= 1;
 				Stimer = 0;
 				Scooldown = 0.5;
+				Sdashing = true;
 			}
 			Stimer = dashcooldown;
+			Sdashing = false;
 		}
 
 		if(Input.GetKeyDown(KeyCode.D))
@@ -183,8 +213,10 @@ public class CharacterController2D : MonoBehaviour
 				dashes -= 1;
 				Dtimer = 0;
 				Dcooldown = 0.5;
+				Ddashing = true;
 			}
 			Dtimer = dashcooldown;
+			Ddashing = false;
 		}
 	}
 

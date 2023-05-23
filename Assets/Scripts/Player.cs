@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    public int health = 12;
+    public int health = 6;
     public CharacterController2D main;
 
     void Update()
@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+
         Debug.Log(health);
     }
 
