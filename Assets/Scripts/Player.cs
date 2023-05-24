@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     public int health = 6;
     public CharacterController2D main;
 
-    void Update()
+    void FixedUpdate()
     {
         if(health <= 0)
         {
