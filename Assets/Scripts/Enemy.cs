@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
     public bool flipped;
     private Rigidbody2D _Rigidbody2D;   
     public float speed = 1;
-    public CharacterController2D player;
+    public Dash player;
 
     public void Turn()
     {

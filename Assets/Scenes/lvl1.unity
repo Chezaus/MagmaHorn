@@ -341,7 +341,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flipped: 0
   speed: 1
-  player: {fileID: 1030856218}
+  player: {fileID: 1030856222}
 --- !u!212 &84227098
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1371,6 +1371,7 @@ GameObject:
   - component: {fileID: 1030856220}
   - component: {fileID: 1030856219}
   - component: {fileID: 1030856221}
+  - component: {fileID: 1030856222}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1493,7 +1494,7 @@ Animator:
   m_GameObject: {fileID: 1030856211}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4272ce38a6eb6a348a9c72ec10c3c11c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1540,7 +1541,6 @@ MonoBehaviour:
   airControl: 1
   dashcooldown: 0.5
   m_Grounded: 1
-  dashing: 0
   OnLandEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -1600,6 +1600,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.2, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1030856222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1030856211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e734a5cc01c889a45bcc88aca45e6b0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 1030856218}
+  dashing: 0
 --- !u!1 &1112013892
 GameObject:
   m_ObjectHideFlags: 0

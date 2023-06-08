@@ -16,25 +16,6 @@ public class CharacterController2D : MonoBehaviour
 	private Rigidbody2D m_Rigidbody2D;
 	private bool m_FacingRight = true;  // For determining which way the player is currently facing.
 	private Vector3 m_Velocity = Vector3.zero;
-	private bool dash;
-	private int dashes = 1;
-
-	double Wtimer;
-	double Atimer;
-	double Stimer;
-	double Dtimer;
-
-	double Wcooldown;
-	double Acooldown;
-	double Scooldown;
-	double Dcooldown;
-
-	bool Wdashing;
-	bool Adashing;
-	bool Sdashing;
-	bool Ddashing;
-
-	public bool dashing;
 
 
 	[Header("Events")]
@@ -53,11 +34,6 @@ public class CharacterController2D : MonoBehaviour
 
 		if (OnLandEvent == null)
 			OnLandEvent = new UnityEvent();
-
-		Wtimer = dashcooldown;
-		Atimer = dashcooldown;
-		Stimer = dashcooldown;
-		Dtimer = dashcooldown;
 	}
 
 	private void FixedUpdate()
@@ -77,52 +53,11 @@ public class CharacterController2D : MonoBehaviour
 					OnLandEvent.Invoke();
 			}
 		}
-
-		if(m_Grounded)
-		{
-			dashes = 1;
-		}
-
-		Wtimer -= Time.deltaTime;
-		Atimer -= Time.deltaTime;
-		Stimer -= Time.deltaTime;
-		Dtimer -= Time.deltaTime;
-
-		Wcooldown -= Time.deltaTime;
-		Acooldown -= Time.deltaTime;
-		Scooldown -= Time.deltaTime;
-		Dcooldown -= Time.deltaTime;
-
-		if(Wcooldown > 0){Wdashing = true;}
-		else{Wdashing = false;}		
-
-		if(Acooldown > 0){Adashing = true;}
-		else{Adashing = false;}	
-
-		if(Scooldown > 0){Sdashing = true;}
-		else{Sdashing = false;}	
-
-		if(Dcooldown > 0){Ddashing = true;}
-		else{Ddashing = false;}	
-
-		if(Wdashing | Adashing | Sdashing | Ddashing)
-		{
-			dashing = true;
-		}
-		else{
-			dashing = false;
-		}
-
-		
-
-		DashDetect();
 	}
 
 
 	public void Move(float move, bool jump)
 	{
-		if(!dashing)
-		{
 			//only control the player if grounded or airControl is turned on
 			if (m_Grounded || airControl)
 			{
@@ -144,7 +79,6 @@ public class CharacterController2D : MonoBehaviour
 					// ... flip the player.
 					Flip();
 				}
-		}
 		// If the player should jump...
 		if (m_Grounded && jump)
 		{
@@ -156,69 +90,6 @@ public class CharacterController2D : MonoBehaviour
 	}
 
 
-	private void DashDetect()
-	{
-
-		if(Input.GetKeyDown(KeyCode.W))
-		{
-			Wcooldown = 0;
-			if(Wtimer > 0 && dashes > 0 && Wcooldown <=0)
-			{
-				m_Rigidbody2D.velocity = new Vector2(0,15);
-				dashes -= 1;
-				Wtimer = 0;
-				Wcooldown = 0.5;
-				Wdashing = true;
-			}
-			Wtimer = dashcooldown;
-			Wdashing = false;
-		}
-
-		if(Input.GetKeyDown(KeyCode.A))
-		{
-			Acooldown = 0;
-			if(Atimer > 0 && dashes > 0 && Acooldown <=0)
-			{
-				m_Rigidbody2D.velocity = new Vector2(-25,0);
-				dashes -= 1;
-				Atimer = 0;
-				Acooldown = 0.5;
-				Adashing = true;
-			}
-			Atimer = dashcooldown;
-			Adashing = false;
-		}
-
-		if(Input.GetKeyDown(KeyCode.S))
-		{
-			Scooldown = 0;
-			if(Stimer > 0 && dashes > 0 && Scooldown <=0)
-			{
-				m_Rigidbody2D.velocity = new Vector2(0,-25);
-				dashes -= 1;
-				Stimer = 0;
-				Scooldown = 0.5;
-				Sdashing = true;
-			}
-			Stimer = dashcooldown;
-			Sdashing = false;
-		}
-
-		if(Input.GetKeyDown(KeyCode.D))
-		{
-			Dcooldown = 0;
-			if(Dtimer > 0 && dashes > 0 && Dcooldown <=0)
-			{
-				m_Rigidbody2D.velocity = new Vector2(25,0);
-				dashes -= 1;
-				Dtimer = 0;
-				Dcooldown = 0.5;
-				Ddashing = true;
-			}
-			Dtimer = dashcooldown;
-			Ddashing = false;
-		}
-	}
 
 	private void Flip()
 	{
