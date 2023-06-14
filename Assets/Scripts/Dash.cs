@@ -8,7 +8,7 @@ public class Dash : MonoBehaviour
     public CharacterController2D controller;
     public bool dashing;
 	private int direction;
-    private double timer;
+    public double timer;
     private int dashes = 1;
 
     private void Awake()
@@ -20,10 +20,10 @@ public class Dash : MonoBehaviour
     {
         DashDetect();
 
-        timer -= Time.deltaTime;
+        timer += Time.deltaTime;
 
         if(controller.m_Grounded)   {dashes = 1;}
-        if(timer <= 0) {dashing = false;}
+        if(timer >= 0.5) {dashing = false;}
     }
 
 	private void DashDetect()
@@ -33,25 +33,25 @@ public class Dash : MonoBehaviour
 		if(Input.GetKey(KeyCode.S))	{direction = 2;}
 		if(Input.GetKey(KeyCode.D))	{direction = 3;}
 
-		if(Input.GetKeyDown(KeyCode.Mouse0) && timer <= 0 && dashes > 0)
+		if(Input.GetKeyDown(KeyCode.Mouse0) && timer >= 0.5 && dashes > 0)
 		{
             dashes -= 1;
 				switch(direction)
 			{
 				case 0: m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x/2,15);
-                        timer = 0.5;
+                        timer = 0;
                         dashing = true;
 					break;
 				case 1: m_Rigidbody2D.velocity = new Vector2(-50,m_Rigidbody2D.velocity.y/2);
-                        timer = 0.5;
+                        timer = 0;
                         dashing = true;
 					break;
 				case 2: m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x/2,-15);
-                        timer = 0.5;
+                        timer = 0;
                         dashing = true;
 					break;
 				case 3: m_Rigidbody2D.velocity = new Vector2(50,m_Rigidbody2D.velocity.y/2);
-                        timer = 0.5;
+                        timer = 0;
                         dashing = true;
 					break;
 			}

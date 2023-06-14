@@ -43,8 +43,14 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 2952136715
+    locked: 0
   - name: Player
     uniqueID: 1507416723
+    locked: 0
+  - name: Blocks
+    uniqueID: 988903403
     locked: 0
   - name: Obstacle
     uniqueID: 1583391861
