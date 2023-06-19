@@ -6,14 +6,16 @@ public class Dash : MonoBehaviour
 {
     private Rigidbody2D m_Rigidbody2D;
     public CharacterController2D controller;
+    public PlayerData data;
     public bool dashing;
 	private int direction;
     public double timer;
-    private int dashes = 1;
+    private int dashes;
 
-    private void Awake()
+    private void Start()
     {
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
+        dashes = PlayerPrefs.GetInt("dashes");
     }
 
     void Update()
@@ -42,7 +44,7 @@ public class Dash : MonoBehaviour
                         timer = 0;
                         dashing = true;
 					break;
-				case 1: m_Rigidbody2D.velocity = new Vector2(-50,m_Rigidbody2D.velocity.y/2);
+				case 1: m_Rigidbody2D.velocity = new Vector2(-15,m_Rigidbody2D.velocity.y/2);
                         timer = 0;
                         dashing = true;
 					break;
@@ -50,7 +52,7 @@ public class Dash : MonoBehaviour
                         timer = 0;
                         dashing = true;
 					break;
-				case 3: m_Rigidbody2D.velocity = new Vector2(50,m_Rigidbody2D.velocity.y/2);
+				case 3: m_Rigidbody2D.velocity = new Vector2(15,m_Rigidbody2D.velocity.y/2);
                         timer = 0;
                         dashing = true;
 					break;

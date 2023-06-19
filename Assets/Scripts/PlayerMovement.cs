@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	public CharacterController2D controller;
 	public Animator animator;
+	public Dash dash;
 
 	public float runSpeed = 40f;
 
@@ -34,8 +35,12 @@ public class PlayerMovement : MonoBehaviour {
 	void FixedUpdate ()
 	{
 		// Move our character
-		controller.Move(horizontalMove * Time.fixedDeltaTime, jump);
-		jump = false;
+		if(!dash.dashing)
+		{
+			controller.Move(horizontalMove * Time.fixedDeltaTime, jump);
+			jump = false;
+		}
+		
 	}
 
 
