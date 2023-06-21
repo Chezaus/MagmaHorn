@@ -7,21 +7,21 @@ using UnityEngine.SceneManagement;
 
 public class Level : MonoBehaviour
 {
-    public int lvl = 1;
+    [SerializeField] public int lvl;
+    public Image button;
 
     void Start()
     {
-        
+        if(PlayerPrefs.GetInt("level") < lvl)
+        {
+            button.enabled = false;
+        }
     }
 
-    public void Button()
+    public void OnClick()
     {    
         SceneManager.LoadScene("lvl" + lvl);
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape)) { Application.Quit(); }
-        
-    }
+
 }

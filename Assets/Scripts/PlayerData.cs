@@ -8,6 +8,7 @@ public class PlayerData : MonoBehaviour
     {
         if(!PlayerPrefs.HasKey("level"))
         {
+            Debug.Log("FALSE");
             PlayerPrefs.SetInt("level", 0);
         }
 
@@ -17,6 +18,7 @@ public class PlayerData : MonoBehaviour
         }
 
         PlayerPrefs.Save();
+        Debug.Log(PlayerPrefs.GetInt("level"));
     }
     
 }
