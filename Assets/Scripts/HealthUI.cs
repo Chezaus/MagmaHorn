@@ -19,13 +19,13 @@ public class HealthUI : MonoBehaviour
                 break;
             case 5: health1.alpha = 0;
                 break;
-            case 4:  health2.alpha = 0;
+            case 4:  health2.alpha = 0; health1.alpha = 0;
                 break;
-            case 3:  health3.alpha = 0;
+            case 3:  health3.alpha = 0; health2.alpha = 0; health1.alpha = 0;
                 break;
-            case 2:  health4.alpha = 0;
+            case 2:  health4.alpha = 0; health3.alpha = 0; health2.alpha = 0; health1.alpha = 0;
                 break;
-            case 1:  health5.alpha = 0;
+            case 1:  health5.alpha = 0; health4.alpha = 0; health3.alpha = 0; health2.alpha = 0; health1.alpha = 0;
                 break;
         }
     }

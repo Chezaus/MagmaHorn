@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlayerKill : MonoBehaviour
 {
     public Player main;
-    float cooldown = 1;
+    public float cooldown = 1;
+    public int damage =1;
     bool attack;
 
     void FixedUpdate()
@@ -21,7 +22,7 @@ public class PlayerKill : MonoBehaviour
     {
             if(other.tag == "Player" && attack)
             {
-                main.health -= 1;
+                main.health -= damage;
                 cooldown = 1;
                 attack = false;
             }
