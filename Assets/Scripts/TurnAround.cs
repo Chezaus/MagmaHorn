@@ -17,9 +17,12 @@ public class TurnAround : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!OnExit & other.tag == "Ground")
+        if (!OnExit)
         {
-            main.Turn();
+            if(other.tag == "Ground"| other.tag == "Enemy")
+            {
+                main.Turn();
+            }
         }
     }
 }
