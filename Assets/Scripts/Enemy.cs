@@ -23,8 +23,12 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void Awake()
+    void Start()
     {
+        if(player == null)
+        {
+            player = GameObject.Find("Player").GetComponent<Dash>();
+        }
         _Rigidbody2D = GetComponent<Rigidbody2D>();
 
     }

@@ -5,6 +5,13 @@ using UnityEngine;
 public class Platform : MonoBehaviour
 {
         public GameObject player;
+        void Start()
+        {
+            if(player == null)
+            {
+                player = GameObject.Find("Player");
+            }
+        }
         void OnTriggerEnter2D (Collider2D other) 
         {
         //make the parent platform ignore the jumper
@@ -21,7 +28,7 @@ public class Platform : MonoBehaviour
 
         void Update()
         {
-            if(Input.GetAxisRaw("Vertical") < 0)
+            if(Input.GetKey(KeyCode.S))
             {
                 var platform = transform.parent;
                 Physics2D.IgnoreCollision(player.GetComponent<PolygonCollider2D>(), platform.GetComponent<Collider2D>());
