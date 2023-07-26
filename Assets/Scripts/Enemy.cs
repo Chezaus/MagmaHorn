@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     private Rigidbody2D _Rigidbody2D;   
     public float speed = 1;
     public Dash player;
+    public AudioSource dead;
 
     public void Turn()
     {
@@ -29,6 +30,10 @@ public class Enemy : MonoBehaviour
         {
             player = GameObject.Find("Player").GetComponent<Dash>();
         }
+        if(dead == null)
+        {
+            dead = GameObject.Find("death").GetComponent<AudioSource>();
+        }
         _Rigidbody2D = GetComponent<Rigidbody2D>();
 
     }
@@ -45,7 +50,9 @@ public class Enemy : MonoBehaviour
     {
         if(other.tag == "Player" && player.dashing)
         {
+            dead.Play();
             Destroy(this.gameObject);
+            
         }
     }
 

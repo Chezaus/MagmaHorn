@@ -7,7 +7,8 @@ public class Dash : MonoBehaviour
     private Rigidbody2D m_Rigidbody2D;
     public CharacterController2D controller;
     public PlayerData data;
-    public bool dashing;
+    public AudioSource dash;
+     public bool dashing;
 	private int direction;
     public double timer;
     private int dashes;
@@ -43,18 +44,22 @@ public class Dash : MonoBehaviour
 				case 0: m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x/2,15);
                         timer = 0;
                         dashing = true;
+                        dash.Play();
 					break;
 				case 1: m_Rigidbody2D.velocity = new Vector2(-15,m_Rigidbody2D.velocity.y/2);
                         timer = 0;
                         dashing = true;
+                        dash.Play();
 					break;
 				case 2: m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x/2,-15);
                         timer = 0;
                         dashing = true;
+                        dash.Play();
 					break;
 				case 3: m_Rigidbody2D.velocity = new Vector2(15,m_Rigidbody2D.velocity.y/2);
                         timer = 0;
                         dashing = true;
+                        dash.Play();
 					break;
 			}
 		}
