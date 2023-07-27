@@ -5,9 +5,10 @@ using UnityEngine;
 public class PlayerKill : MonoBehaviour
 {
     public Player main;
-    public float cooldown = 1;
+    public float cooldown;
     public int damage =1;
     bool attack;
+    bool lava = false;
 
     void FixedUpdate()
     {
@@ -16,16 +17,29 @@ public class PlayerKill : MonoBehaviour
         {
             attack = true;
         }
-    }
 
-    private void OnTriggerStay2D(Collider2D other)
-    {
-            if(other.tag == "Player" && attack)
+        if(lava && attack)
             {
                 main.health -= damage;
-                cooldown = 1;
+                cooldown = 1f;
                 attack = false;
             }
-        
+    }
+
+    //I used OnTriggerEnter and Exit instead of Stay because they are more consistent
+    private void OnTriggerEnter2D(Collider2D other)
+    {   
+        if(other.tag == "Player")
+        {
+            lava = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {   
+        if(other.tag == "Player")
+        {
+            lava = false;
+        }
     }
 }
