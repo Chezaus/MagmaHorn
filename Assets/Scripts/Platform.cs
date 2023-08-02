@@ -33,6 +33,11 @@ public class Platform : MonoBehaviour
                 var platform = transform.parent;
                 Physics2D.IgnoreCollision(player.GetComponent<PolygonCollider2D>(), platform.GetComponent<Collider2D>());
             }
+            if(Input.GetKeyUp(KeyCode.S))
+            {
+                var platform = transform.parent;
+                Physics2D.IgnoreCollision(player.GetComponent<PolygonCollider2D>(), platform.GetComponent<Collider2D>(),false);
+            }
 
         }
 

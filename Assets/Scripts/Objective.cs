@@ -7,7 +7,7 @@ public class Objective : MonoBehaviour
     public Collect main;
     void OnTriggerStay2D(Collider2D other)
     {
-        if(main.coins == 3)
+        if(main.coins >= 3)
         {
             var platform = transform.parent;
             Physics2D.IgnoreCollision(other.GetComponent<PolygonCollider2D>(), platform.GetComponent<Collider2D>());

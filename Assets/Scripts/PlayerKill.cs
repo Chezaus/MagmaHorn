@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerKill : MonoBehaviour
 {
     public Player main;
+    public AudioSource hit;
     public float cooldown;
     public int damage =1;
     bool attack;
@@ -23,10 +24,11 @@ public class PlayerKill : MonoBehaviour
                 main.health -= damage;
                 cooldown = 1f;
                 attack = false;
+                hit.Play();
             }
     }
 
-    //I used OnTriggerEnter and Exit instead of Stay because they are more consistent
+    //I used OnTriggerEnter and Exit instead of Stay because it is more consistent
     private void OnTriggerEnter2D(Collider2D other)
     {   
         if(other.tag == "Player")
