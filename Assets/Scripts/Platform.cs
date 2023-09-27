@@ -5,6 +5,7 @@ using UnityEngine;
 public class Platform : MonoBehaviour
 {
         public GameObject player;
+        float time = 0;
         void Start()
         {
             if(player == null)
@@ -24,17 +25,22 @@ public class Platform : MonoBehaviour
         //re-enable collision between jumper and parent platform, so we can stand on top again
         var platform = transform.parent;
         Physics2D.IgnoreCollision(jumper.GetComponent<PolygonCollider2D>(), platform.GetComponent<Collider2D>(), false);
-    }
+        }
 
         void Update()
         {
+            
+            time += Time.deltaTime;
+            Debug.Log(time);
             if(Input.GetKey(KeyCode.S))
             {
                 var platform = transform.parent;
                 Physics2D.IgnoreCollision(player.GetComponent<PolygonCollider2D>(), platform.GetComponent<Collider2D>());
+                time = 0;
             }
-            if(Input.GetKeyUp(KeyCode.S))
+            if(Input.GetKeyUp(KeyCode.S) && time > 0.5f)
             {
+
                 var platform = transform.parent;
                 Physics2D.IgnoreCollision(player.GetComponent<PolygonCollider2D>(), platform.GetComponent<Collider2D>(),false);
             }
