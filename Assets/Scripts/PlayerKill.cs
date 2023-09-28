@@ -11,6 +11,14 @@ public class PlayerKill : MonoBehaviour
     bool attack;
     bool lava = false;
 
+    void Start()
+    {
+        if(main == null)
+        {
+            main = GameObject.Find("Player").GetComponent<Player>();
+        }
+    }
+
     void FixedUpdate()
     {
         cooldown -= Time.deltaTime;
